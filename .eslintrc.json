@@ -20,9 +20,7 @@
       "import/extensions": [
         "error",
         "ignorePackages",
-        {
-          "ts": "never"
-        }
+        { "ts": "never" }
       ]
     },
     "settings": {
