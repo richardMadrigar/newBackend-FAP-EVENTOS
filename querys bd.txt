@@ -1,0 +1,58 @@
+CREATE TABLE img_perfil_usuarios (
+	id_usuario  VARCHAR(40) NOT NULL PRIMARY KEY,
+	img_perfil VARCHAR(100),
+	file_path,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+	
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+);
+CREATE INDEX indice_id_usuario_img ON img_perfil_usuarios ("id_usuario");
+---------------------------------------------------------
+CREATE TABLE permissao_usuarios (
+	id_usuario VARCHAR(40) PRIMARY KEY NOT NULL,
+	permissao VARCHAR(20) DEFAULT 'colaborador',
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+	
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+);
+CREATE INDEX indice_id_usuario_permissao ON permissao_usuarios  ("id_usuario");
+---------------------------------------------------------
+CREATE TABLE usuarios (
+	id_usuario VARCHAR(40) PRIMARY KEY NOT NULL,
+	numero_usuario SERIAL NOT NULL ,
+	nome_completo VARCHAR(60) NOT NULL,
+	email VARCHAR(70) NOT NULL,	
+	cpf VARCHAR(15) NOT NULL,
+	rg VARCHAR(15) NOT NULL,
+	whats VARCHAR(15) NOT NULL,
+	celular VARCHAR(15) NOT NULL,
+	data_nascimento VARCHAR(15) NOT NULL,
+	nome_da_mae VARCHAR(60) NOT NULL,
+	cep VARCHAR(15) NOT NULL,
+	numero_da_rua VARCHAR(10) NOT NULL,
+	nit_pis VARCHAR(15) NOT NULL,
+	agencia VARCHAR(15) NOT NULL,
+	banco VARCHAR(15) NOT NULL,
+	conta VARCHAR(15) NOT NULL,
+	pix VARCHAR(50) NOT NULL,
+	ccm VARCHAR(60) NOT NULL,
+	check_doc boolean NOT NULL DEFAULT false,
+	senha VARCHAR(90) NOT NULL,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+CREATE INDEX indice_cpf ON usuarios ("cpf");
+CREATE INDEX indice_id ON usuarios ("id_usuario");
+---------------------------------------------------------
+SELECT * FROM usuarios
+INNER JOIN img_perfil_usuarios
+ON usuarios.id_usuario=img_perfil_usuarios.id_usuario;
+'trazendo dados de duastabelas'
+---------------------------------------------------------
+SELECT * FROM usuarios
+INNER JOIN img_perfil_usuarios
+ON usuarios.id_usuario=img_perfil_usuarios.id_usuario
+INNER JOIN permissao_usuarios
+ON usuarios.id_usuario=permissao_usuarios.id_usuario;
+'trazendo dados de tres tabelas'
+---------------------------------------------------------

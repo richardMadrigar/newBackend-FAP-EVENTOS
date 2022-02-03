@@ -2,7 +2,7 @@
 import { Pool } from 'pg';
 
 import 'dotenv/config';
-import logger from '../configLogger';
+import { logger } from '../configLogger';
 
 export const pool = new Pool({
   user: process.env.DB_USER,

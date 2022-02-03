@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
-import logger from '../config/configLogger';
+import { logger } from '../config/configLogger';
 
 const SECRET = String(process.env.SECRET_TOKEN);
 

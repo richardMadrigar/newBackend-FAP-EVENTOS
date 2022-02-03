@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import bcrypt from 'bcrypt';
 import { pool } from '../config/configDataBase/database';
-import logger from '../config/configLogger';
+import { logger } from '../config/configLogger';
 import { generateToken } from '../config/configToken/generateToken';
 
 const salt = bcrypt.genSaltSync(10);

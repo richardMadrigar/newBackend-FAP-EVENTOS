@@ -13,4 +13,4 @@ const logger = pino(
   pinoStyles,
 );
 
-export default logger;
+export { logger };

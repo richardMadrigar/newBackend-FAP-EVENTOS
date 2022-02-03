@@ -1,7 +1,7 @@
-import app from './app';
+import { app } from './app';
 import 'dotenv/config';
 
-import logger from './config/configLogger';
+import { logger } from './config/configLogger';
 
 const PORT = process.env.PORT_SERVER;
 

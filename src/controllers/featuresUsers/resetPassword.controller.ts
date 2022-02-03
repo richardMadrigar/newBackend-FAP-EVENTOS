@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { pool } from '../../config/configDataBase/database';
-import logger from '../../config/configLogger';
+import { logger } from '../../config/configLogger';
 
 const salt = bcrypt.genSaltSync(10);
 
