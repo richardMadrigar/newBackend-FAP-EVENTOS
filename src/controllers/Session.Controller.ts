@@ -21,8 +21,9 @@ export const sessionUser = async (req: Request, res: Response) => {
     const [{
       nome_completo, email, rg, whats, celular, id_usuario, data_nascimento, nit_pis,
       nome_da_mae, banco, agencia, conta, cep, numero_da_rua, pix, img_perfil, permissao,
-      ccm,
+      ccm, funcao,
     }] = rows;
+
     logger.info(`Session {nome: ${nome_completo}}, {cpf: ${cpf}}`);
 
     return res.status(200).json({
@@ -38,6 +39,7 @@ export const sessionUser = async (req: Request, res: Response) => {
       nome_da_mae,
       banco,
       agencia,
+      funcao,
       conta,
       cep,
       numero_da_rua,

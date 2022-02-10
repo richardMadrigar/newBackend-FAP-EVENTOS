@@ -29,7 +29,7 @@ export const Login = async (req: Request, res: Response) => {
     const [{
       id_usuario, nome_completo, email, rg, whats, celular, data_nascimento, nit_pis,
       nome_da_mae, banco, agencia, conta, cep, numero_da_rua, pix, ccm, senha,
-      permissao, img_perfil,
+      permissao, img_perfil, funcao,
     }] = rows;
 
     const confere = await bcrypt.compare(senhaFront, senha);
@@ -56,6 +56,7 @@ export const Login = async (req: Request, res: Response) => {
       agencia,
       conta,
       cep,
+      funcao,
       numero_da_rua,
       pix,
       ccm,

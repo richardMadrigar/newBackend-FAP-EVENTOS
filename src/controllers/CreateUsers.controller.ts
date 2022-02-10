@@ -21,6 +21,7 @@ export const createUser = async (req: Request, res: Response) => {
     nome_da_mae,
     banco,
     cep,
+    funcao,
     numero_da_rua,
     cpf,
     rg,
@@ -28,6 +29,7 @@ export const createUser = async (req: Request, res: Response) => {
     senha,
     agencia,
     conta,
+    permissao: permission,
     ccm,
   } = req.body;
 
@@ -40,7 +42,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     if (rowCount > 0) { // verifica se existe CPF
       logger.info(`Usuario com CPF: ${cpf} ja existe`);
-      return res.status(400).json(`Usuário com CPF: ${cpf} já existe`);
+      return res.status(400).json({ message: `Usuário com CPF: ${cpf} já existe` });
     }
 
     const hash = bcrypt.hashSync(senha, salt);
@@ -49,18 +51,18 @@ export const createUser = async (req: Request, res: Response) => {
 
     const SQL = `INSERT INTO usuarios (
       id_usuario, nome_completo, email, cpf, senha, rg, whats, celular, data_nascimento, nit_pis,
-      nome_da_mae, banco, cep , pix, agencia, conta , check_doc, numero_da_rua, ccm
+      nome_da_mae, banco, cep , pix, agencia, conta , check_doc, numero_da_rua, ccm, funcao
     )
-      VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19 )
+      VALUES( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20 )
     `;
 
     const values = [
       id_usuario, nome_completo, email, cpf, hash, rg, whats, celular, data_nascimento, nit_pis,
-      nome_da_mae, banco, cep, pix, agencia, conta, check_doc, numero_da_rua, ccm,
+      nome_da_mae, banco, cep, pix, agencia, conta, check_doc, numero_da_rua, ccm, funcao,
     ];
 
-    const SQL_permissao = 'INSERT INTO permissao_usuarios ( id_usuario ) VALUES( $1 )';
-    const values_permissao = [id_usuario];
+    const SQL_permissao = 'INSERT INTO permissao_usuarios ( id_usuario, permissao ) VALUES( $1, $2 )';
+    const values_permissao = [id_usuario, permission];
 
     const SQL_img = 'INSERT INTO img_perfil_usuarios ( id_usuario ) VALUES( $1 )';
     const values_img = [id_usuario];
@@ -70,12 +72,12 @@ export const createUser = async (req: Request, res: Response) => {
     await pool.query(SQL_permissao, values_permissao);
 
     const { rows } = await pool.query(`
-    SELECT * FROM usuarios
-    INNER JOIN img_perfil_usuarios
-    ON usuarios.id_usuario=img_perfil_usuarios.id_usuario
-    INNER JOIN permissao_usuarios
-    ON usuarios.id_usuario=permissao_usuarios.id_usuario
-    WHERE cpf = $1`, [cpf]);
+        SELECT * FROM usuarios
+        INNER JOIN img_perfil_usuarios
+        ON usuarios.id_usuario=img_perfil_usuarios.id_usuario
+        INNER JOIN permissao_usuarios
+        ON usuarios.id_usuario=permissao_usuarios.id_usuario
+        WHERE cpf = $1`, [cpf]);
 
     const [{ permissao, img_perfil }] = rows;
 
@@ -83,6 +85,7 @@ export const createUser = async (req: Request, res: Response) => {
     logger.info(`Usuario criado { Nome: ${nome_completo} } { CPF: ${cpf} } `);
 
     return res.status(201).json({
+      message: 'usuario criado',
       id_usuario,
       nome_completo,
       email,
@@ -92,6 +95,7 @@ export const createUser = async (req: Request, res: Response) => {
       celular,
       data_nascimento,
       nit_pis,
+      funcao,
       nome_da_mae,
       banco,
       agencia,

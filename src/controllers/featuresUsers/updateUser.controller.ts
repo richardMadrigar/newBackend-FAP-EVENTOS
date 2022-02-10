@@ -22,7 +22,7 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
 
   const values = [
     nome_completo, email, cpf, rg, whats, celular, data_nascimento, nit_pis,
-    nome_da_mae, banco, agencia, conta, cep, pix, numero_da_rua, ccm, id_usuario,
+    nome_da_mae, banco, agencia, conta, cep, numero_da_rua, pix, ccm, id_usuario,
   ];
 
   try {
