@@ -13,6 +13,7 @@ import { deleteUser } from '../controllers/featuresUsers/deleteUser.controller';
 import { resetPassword } from '../controllers/featuresUsers/resetPassword.controller';
 import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
+import { createEvent } from '../controllers/eventos/createEvents';
 
 const router = Router();
 // featuresImg
@@ -30,5 +31,8 @@ router.get('/getUserAll', getUsersAll); // pegar usuarios
 router.post('/createUser', createUser);
 router.post('/login', Login);
 router.post('/sessions', verifyToken, sessionUser);
+
+// events
+router.post('/createEvent', createEvent);
 
 export { router };
