@@ -13,9 +13,10 @@ import { deleteUser } from '../controllers/featuresUsers/deleteUser.controller';
 import { resetPassword } from '../controllers/featuresUsers/resetPassword.controller';
 import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
-import { createEvent } from '../controllers/events/createEvents';
 import { getGerenteByName } from '../controllers/events/getGerenteByName';
 import { getListEvent } from '../controllers/events/getEventList';
+import { CreateEvent } from '../controllers/events/CreateEvents';
+import { getListEventDay } from '../controllers/events/getEventListDay';
 
 const router = Router();
 // featuresImg
@@ -36,7 +37,8 @@ router.post('/sessions', verifyToken, sessionUser);
 
 // events
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
-router.post('/createEvent', createEvent);
-router.get('/getListEvent', getListEvent);
+router.post('/createEvent', CreateEvent);
+router.post('/getListEvent', getListEvent);
+router.post('/getListEventDay', getListEventDay);
 
 export { router };

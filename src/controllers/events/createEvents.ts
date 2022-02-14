@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { pool } from '../../config/configDataBase/database';
 import { logger } from '../../config/configLogger';
 
-export const createEvent = async (req: Request, res: Response) => {
+export const CreateEvent = async (req: Request, res: Response) => {
   const {
     nome_evento,
     endereco_evento,
