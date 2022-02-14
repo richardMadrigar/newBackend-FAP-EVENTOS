@@ -18,6 +18,7 @@ import { getListEvent } from '../controllers/events/ListEvent/getEventList';
 import { CreateEvent } from '../controllers/events/CreateEvents';
 import { getListEventDay } from '../controllers/events/ListEvent/getEventListDay';
 import { getListEventAll } from '../controllers/events/ListEvent/getEventListAll';
+import { deleteEvent } from '../controllers/events/DeleteEvent';
 
 const router = Router();
 // featuresImg
@@ -39,6 +40,7 @@ router.post('/sessions', verifyToken, sessionUser);
 // events
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
+router.delete('/deleteEvent', deleteEvent);
 router.post('/getListEvent', getListEvent);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);

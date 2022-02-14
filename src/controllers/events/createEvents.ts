@@ -19,7 +19,7 @@ export const CreateEvent = async (req: Request, res: Response) => {
     ativo_evento,
     descricao_evento,
   } = req.body;
-
+  console.log(req.body);
   try {
     const id_evento = uuidv4();
 
