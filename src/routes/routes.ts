@@ -13,9 +13,9 @@ import { deleteUser } from '../controllers/featuresUsers/deleteUser.controller';
 import { resetPassword } from '../controllers/featuresUsers/resetPassword.controller';
 import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
-import { createEvent } from '../controllers/eventos/createEvents';
-import { getGerenteByName } from '../controllers/eventos/getGerenteByName';
-import { getListEvent } from '../controllers/eventos/getEventList';
+import { createEvent } from '../controllers/events/createEvents';
+import { getGerenteByName } from '../controllers/events/getGerenteByName';
+import { getListEvent } from '../controllers/events/getEventList';
 
 const router = Router();
 // featuresImg
