@@ -14,6 +14,7 @@ import { resetPassword } from '../controllers/featuresUsers/resetPassword.contro
 import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
 import { createEvent } from '../controllers/eventos/createEvents';
+import { getGerenteByName } from '../controllers/eventos/getGerenteByName';
 
 const router = Router();
 // featuresImg
@@ -33,6 +34,7 @@ router.post('/login', Login);
 router.post('/sessions', verifyToken, sessionUser);
 
 // events
+router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', createEvent);
 
 export { router };
