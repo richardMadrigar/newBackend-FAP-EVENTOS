@@ -3,15 +3,21 @@ import { pool } from '../../config/configDataBase/database';
 
 import { logger } from '../../config/configLogger';
 
-export const getListEvent = async (req: Request, res: Response) => {
+export const getListEvent = async (request: Request, response: Response) => {
+  const { inicial_date, final_date } = request.body;
+
+  const SQL = `SELECT * FROM usuarios 
+               WHERE created_at BETWEEN '${inicial_date}' and '${final_date}';`;
+
   try {
-    const { rows, rowCount } = await pool.query('SELECT * FROM eventos');
+    // const { rows, rowCount } = await pool.query('SELECT * FROM eventos');
 
-    if (!rowCount) return res.status(400).json('Evento nao  existe ');
+    const { rows: eventFilter } = await pool.query(SQL);
 
-    return res.status(200).json(rows);
+    // logger.info(eventFilter);
+    return response.status(200).json(eventFilter);
   } catch (error) {
     logger.fatal(error);
-    return res.status(500).json('Internal Server error');
+    return response.status(500).json('Internal Server error');
   }
 };
