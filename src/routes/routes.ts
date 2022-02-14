@@ -15,6 +15,7 @@ import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
 import { createEvent } from '../controllers/eventos/createEvents';
 import { getGerenteByName } from '../controllers/eventos/getGerenteByName';
+import { getListEvent } from '../controllers/eventos/getEventList';
 
 const router = Router();
 // featuresImg
@@ -36,5 +37,6 @@ router.post('/sessions', verifyToken, sessionUser);
 // events
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', createEvent);
+router.get('/getListEvent', getListEvent);
 
 export { router };
