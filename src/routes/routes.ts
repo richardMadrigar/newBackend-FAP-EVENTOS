@@ -14,9 +14,10 @@ import { resetPassword } from '../controllers/featuresUsers/resetPassword.contro
 import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
 import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
 import { getGerenteByName } from '../controllers/events/getGerenteByName';
-import { getListEvent } from '../controllers/events/getEventList';
+import { getListEvent } from '../controllers/events/ListEvent/getEventList';
 import { CreateEvent } from '../controllers/events/CreateEvents';
-import { getListEventDay } from '../controllers/events/getEventListDay';
+import { getListEventDay } from '../controllers/events/ListEvent/getEventListDay';
+import { getListEventAll } from '../controllers/events/ListEvent/getEventListAll';
 
 const router = Router();
 // featuresImg
@@ -40,5 +41,6 @@ router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
 router.post('/getListEvent', getListEvent);
 router.post('/getListEventDay', getListEventDay);
+router.get('/getListEventAll', getListEventAll);
 
 export { router };
