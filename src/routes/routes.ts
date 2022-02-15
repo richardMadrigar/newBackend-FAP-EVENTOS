@@ -2,25 +2,26 @@ import { Router } from 'express';
 
 import multer from 'multer';
 
-import { sessionUser } from '../controllers/Session.Controller';
 import { verifyToken } from '../middlewares/verifyToken';
-import { createUser } from '../controllers/CreateUsers.controller';
-import { Login } from '../controllers/Login.controller';
+import { createUser } from '../controllers/useCases/user/CreateUsers.controller';
 import { multerConfig } from '../config/configImg/multer';
-import { deleteImg, selectUserImg, updateImgUser } from '../controllers/UploadArquivos.controller';
-import { getUsersAll } from '../controllers/featuresUsers/getUsersAll.controller';
-import { deleteUser } from '../controllers/featuresUsers/deleteUser.controller';
-import { resetPassword } from '../controllers/featuresUsers/resetPassword.controller';
-import { updateUser } from '../controllers/featuresUsers/updateUser.controller';
-import { getUserbyId } from '../controllers/featuresUsers/getUserById.controller';
-import { getGerenteByName } from '../controllers/events/getGerenteByName';
-import { getListEvent } from '../controllers/events/ListEvent/getEventList';
-import { CreateEvent } from '../controllers/events/CreateEvents';
-import { getListEventDay } from '../controllers/events/ListEvent/getEventListDay';
-import { getListEventAll } from '../controllers/events/ListEvent/getEventListAll';
-import { deleteEvent } from '../controllers/events/DeleteEvent';
+import { deleteImg, selectUserImg, updateImgUser } from '../controllers/useCases/UploadImage/UploadArquivos.controller';
+import { getUsersAll } from '../controllers/useCases/user/Features/getUsersAll.controller';
+import { deleteUser } from '../controllers/useCases/user/Features/deleteUser.controller';
+import { resetPassword } from '../controllers/useCases/user/Features/resetPassword.controller';
+import { updateUser } from '../controllers/useCases/user/Features/updateUser.controller';
+import { getUserbyId } from '../controllers/useCases/user/Features/getUserById.controller';
+import { getGerenteByName } from '../controllers/useCases/events/getGerenteByName';
+import { getListEvent } from '../controllers/useCases/events/ListEvent/getEventList';
+import { CreateEvent } from '../controllers/useCases/events/CreateEvents';
+import { getListEventDay } from '../controllers/useCases/events/ListEvent/getEventListDay';
+import { getListEventAll } from '../controllers/useCases/events/ListEvent/getEventListAll';
+import { deleteEvent } from '../controllers/useCases/events/DeleteEvent';
+import { Login } from '../controllers/useCases/user/Login.controller';
+import { sessionUser } from '../controllers/useCases/user/Session.Controller';
 
 const router = Router();
+
 // featuresImg
 router.put('/editImgUser/:id', multer(multerConfig).single('file'), updateImgUser);
 router.put('/deleteImg/:id', deleteImg);
@@ -33,6 +34,7 @@ router.delete('/users/:id_usuario', verifyToken, deleteUser); // deletar users
 router.put('/users/:id_usuario', verifyToken, updateUser); // editar users
 router.get('/getUserAll', getUsersAll); // pegar usuarios
 
+// Home
 router.post('/createUser', createUser);
 router.post('/login', Login);
 router.post('/sessions', verifyToken, sessionUser);
@@ -40,7 +42,7 @@ router.post('/sessions', verifyToken, sessionUser);
 // events
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
-router.delete('/deleteEvent', deleteEvent);
+router.delete('/deleteEvent/:id_evento', deleteEvent);
 router.post('/getListEvent', getListEvent);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);

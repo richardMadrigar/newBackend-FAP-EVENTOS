@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { pool } from '../config/configDataBase/database';
-import { logger } from '../config/configLogger';
+import { pool } from '../../../config/configDataBase/database';
+import { logger } from '../../../config/configLogger';
 
 export const sessionUser = async (req: Request, res: Response) => {
   const cpf = req.body.cpfToken;

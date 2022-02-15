@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
 import { v4 as uuidv4 } from 'uuid';
-import { pool } from '../../config/configDataBase/database';
-import { logger } from '../../config/configLogger';
+import { pool } from '../../../config/configDataBase/database';
+import { logger } from '../../../config/configLogger';
 
 export const CreateEvent = async (req: Request, res: Response) => {
   const {

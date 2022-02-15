@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
-import { pool } from '../../config/configDataBase/database';
-import { logger } from '../../config/configLogger';
+import { pool } from '../../../config/configDataBase/database';
+import { logger } from '../../../config/configLogger';
 
 export const getGerenteByName = async (req: Request, res: Response) => {
   const { responsavel_evento } = req.params;
 
   try {
-    const SQL = `SELECT nome_completo, id_usuario FROM permissao_usuarios WHERE nome_completo ILIKE '%${responsavel_evento}%'`;
+    const SQL = `SELECT nome_completo, id_usuario, cpf_usuario FROM permissao_usuarios WHERE nome_completo ILIKE '%${responsavel_evento}%'`;
 
     const { rows, rowCount } = await pool.query(SQL);
 
@@ -16,8 +16,7 @@ export const getGerenteByName = async (req: Request, res: Response) => {
     }
 
     const result = rows.map((value) => ({
-      label: value.nome_completo,
-      id_usuario: value.id_usuario,
+      label: `${value.nome_completo}  +  ${value.cpf_usuario}`,
     }));
 
     return res.status(200).json(result);

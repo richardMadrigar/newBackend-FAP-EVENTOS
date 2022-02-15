@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-import { pool } from '../../config/configDataBase/database';
+import { pool } from '../../../config/configDataBase/database';
 
-import { logger } from '../../config/configLogger';
+import { logger } from '../../../config/configLogger';
 
 export const deleteEvent = async (req: Request, res: Response) => {
   try {
-    const { id_evento } = req.body;
+    const { id_evento } = req.params;
 
     const SQL = 'DELETE FROM eventos WHERE id_evento = $1';
     const VALUES = id_evento;

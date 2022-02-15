@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import bcrypt from 'bcrypt';
-import { pool } from '../config/configDataBase/database';
-import { logger } from '../config/configLogger';
-import { generateToken } from '../config/configToken/generateToken';
+import { pool } from '../../../config/configDataBase/database';
+import { logger } from '../../../config/configLogger';
+import { generateToken } from '../../../config/configToken/generateToken';
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -61,8 +61,8 @@ export const createUser = async (req: Request, res: Response) => {
       nome_da_mae, banco, cep, pix, agencia, conta, check_doc, numero_da_rua, ccm, funcao,
     ];
 
-    const SQL_permissao = 'INSERT INTO permissao_usuarios ( id_usuario, permissao, nome_completo ) VALUES( $1, $2, $3 )';
-    const values_permissao = [id_usuario, permission, nome_completo];
+    const SQL_permissao = 'INSERT INTO permissao_usuarios ( id_usuario, permissao, nome_completo, cpf_usuario ) VALUES( $1, $2, $3, $4 )';
+    const values_permissao = [id_usuario, permission, nome_completo, cpf];
 
     const SQL_img = 'INSERT INTO img_perfil_usuarios ( id_usuario ) VALUES( $1 )';
     const values_img = [id_usuario];

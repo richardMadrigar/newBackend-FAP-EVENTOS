@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
 import bcrypt from 'bcrypt';
-import { pool } from '../config/configDataBase/database';
-import { logger } from '../config/configLogger';
-import { generateToken } from '../config/configToken/generateToken';
+import { pool } from '../../../config/configDataBase/database';
+import { logger } from '../../../config/configLogger';
+import { generateToken } from '../../../config/configToken/generateToken';
 
 export const Login = async (req: Request, res: Response) => {
   const { cpf, senha: senhaFront } = req.body;
