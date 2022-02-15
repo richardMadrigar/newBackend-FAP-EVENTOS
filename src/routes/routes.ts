@@ -22,12 +22,12 @@ import { sessionUser } from '../controllers/useCases/user/Session.Controller';
 
 const router = Router();
 
-// featuresImg
+// FeaturesImg
 router.put('/editImgUser/:id', multer(multerConfig).single('file'), updateImgUser);
 router.put('/deleteImg/:id', deleteImg);
 router.get('/getImgAll', selectUserImg);
 
-// featuresUsers
+// FeaturesUsers
 router.put('/resetPassword/:id_usuario', verifyToken, resetPassword); // resetar senha
 router.get('/getUser/:id_usuario', verifyToken, getUserbyId); // pegar user especifico
 router.delete('/users/:id_usuario', verifyToken, deleteUser); // deletar users
@@ -39,7 +39,7 @@ router.post('/createUser', createUser);
 router.post('/login', Login);
 router.post('/sessions', verifyToken, sessionUser);
 
-// events
+// Events
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
 router.delete('/deleteEvent/:id_evento', deleteEvent);
