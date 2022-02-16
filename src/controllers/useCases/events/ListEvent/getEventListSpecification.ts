@@ -12,6 +12,7 @@ export const getListEventSpecification = async (request: Request, response: Resp
 
   try {
     const { rows } = await pool.query(tes);
+
     return response.status(200).json(rows);
   } catch (error) {
     logger.fatal(error);
