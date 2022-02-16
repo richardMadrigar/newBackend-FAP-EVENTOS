@@ -19,7 +19,6 @@ export const CreateEvent = async (req: Request, res: Response) => {
     ativo_evento,
     descricao_evento,
   } = req.body;
-  console.log(req.body);
   try {
     const id_evento = uuidv4();
 
@@ -42,17 +41,6 @@ export const CreateEvent = async (req: Request, res: Response) => {
     ];
 
     await pool.query(SQL, values);
-
-    // const { rows } = await pool.query(`
-    //     SELECT * FROM usuarios
-    //     INNER JOIN img_perfil_usuarios
-    //     ON usuarios.id_usuario=img_perfil_usuarios.id_usuario
-    //     INNER JOIN permissao_usuarios
-    //     ON usuarios.id_usuario=permissao_usuarios.id_usuario
-    //     WHERE cpf = $1`, [cpf]);
-
-    // const [{ permissao, img_perfil }] = rows;
-
     logger.info('Evento criado com sucesso ');
 
     return res.status(201).json({ message: 'Evento criado com sucesso ' });

@@ -12,7 +12,7 @@ import { resetPassword } from '../controllers/useCases/user/Features/resetPasswo
 import { updateUser } from '../controllers/useCases/user/Features/updateUser.controller';
 import { getUserbyId } from '../controllers/useCases/user/Features/getUserById.controller';
 import { getGerenteByName } from '../controllers/useCases/events/getGerenteByName';
-import { getListEvent } from '../controllers/useCases/events/ListEvent/getEventList';
+import { getListEventSpecification } from '../controllers/useCases/events/ListEvent/getEventListSpecification';
 import { CreateEvent } from '../controllers/useCases/events/CreateEvents';
 import { getListEventDay } from '../controllers/useCases/events/ListEvent/getEventListDay';
 import { getListEventAll } from '../controllers/useCases/events/ListEvent/getEventListAll';
@@ -43,7 +43,7 @@ router.post('/sessions', verifyToken, sessionUser);
 router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
 router.delete('/deleteEvent/:id_evento', deleteEvent);
-router.post('/getListEvent', getListEvent);
+router.post('/getListEvent', getListEventSpecification);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);
 
