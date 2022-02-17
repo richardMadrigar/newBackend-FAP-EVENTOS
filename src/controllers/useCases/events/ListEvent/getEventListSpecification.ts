@@ -6,9 +6,11 @@ import { logger } from '../../../../config/configLogger';
 export const getListEventSpecification = async (request: Request, response: Response) => {
   const { inicial_date, final_date, nome_evento } = request.body;
 
-  const SQL = `SELECT * FROM eventos 
-                WHERE data_evento BETWEEN '${inicial_date}' and '${final_date}'
-                and nome_evento ILIKE '%${nome_evento}%';`;
+  const SQL = inicial_date && final_date
+    ? `SELECT * FROM eventos 
+        WHERE data_evento BETWEEN '${inicial_date}' and '${final_date}'
+        and nome_evento ILIKE '%${nome_evento}%';`
+    : `SELECT * FROM eventos WHERE  nome_evento ILIKE '%${nome_evento}%';`;
 
   try {
     const { rows } = await pool.query(SQL);
