@@ -15,8 +15,8 @@ export const pool = new Pool({
 pool
   .connect()
   .then(() => {
-    logger.info(`Successfully connected databases ${process.env.DB_DATABASE}`);
+    logger.info(`Successfully connected databases - ${process.env.DB_DATABASE} -`);
   })
   .catch(() => {
-    logger.fatal(`Error connecting to database ${process.env.DB_DATABASE}`);
+    logger.fatal(`Error connecting to database - ${process.env.DB_DATABASE} - `);
   });

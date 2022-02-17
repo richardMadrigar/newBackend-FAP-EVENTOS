@@ -19,6 +19,7 @@ import { getListEventAll } from '../controllers/useCases/events/ListEvent/getEve
 import { deleteEvent } from '../controllers/useCases/events/DeleteEvent';
 import { Login } from '../controllers/useCases/user/Login.controller';
 import { sessionUser } from '../controllers/useCases/user/Session.Controller';
+import { sendResetPass } from '../providers/SendEmail';
 
 const router = Router();
 
@@ -47,4 +48,6 @@ router.post('/getListEvent', getListEventSpecification);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);
 
+// SendEmail
+router.post('/sendResetPass', sendResetPass);
 export { router };
