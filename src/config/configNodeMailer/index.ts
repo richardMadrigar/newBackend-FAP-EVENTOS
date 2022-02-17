@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
+
 import { logger } from '../configLogger';
+
 import 'dotenv/config';
 
 export const transporter = nodemailer.createTransport({
@@ -13,9 +15,11 @@ export const transporter = nodemailer.createTransport({
   tls: { rejectUnauthorized: false },
 });
 
-transporter.verify((error) => {
+transporter.verify((error, success) => {
   if (error) {
     return logger.fatal(`Error connection Gmail ${error}`);
   }
-  return logger.info('Server is connection to - Gmail - success');
+
+  logger.info('Server is connection to - Gmail - success');
+  return success;
 });

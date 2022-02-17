@@ -1,32 +1,27 @@
-import { Request, Response } from 'express';
-
 import { logger } from '../config/configLogger';
-import { transporter } from '../config/configNodeMiler';
+import { transporter } from '../config/configNodeMailer';
 
-const newSenha = '123124';
-
-const sendResetPass = async (request: Request, response: Response) => {
-  const { toEmail } = request.body;
-
+const sendResetPass = async (toEmail: string, newPassword: string) => {
   transporter.sendMail({
     from: 'Comunicação FAP-EVENTOS <richardsendemail@gmail.com',
     to: [`${toEmail}`],
     text: 'Texto do E-mail',
     subject: 'Recuperação de senha FAP-EVENTOS',
     html: `
-      <html>
-        <body>
-          <strong>Sua nova senha é: ${newSenha}</strong>
-        </body>
-      </html>
-      `,
+        <html>
+          <body>
+            <strong>Sua nova senha é: ${newPassword}</strong>
+          </body>
+        </html>
+        `,
   }).then(() => {
-    logger.info('Senha resetado com sucesso');
-
-    return response.status(200).json('Senha resetado com sucesso');
+    logger.info('Email enviado com sucesso');
+    const success = 'Email enviado com sucesso';
+    return success;
   }).catch((error) => {
     logger.fatal(error);
-    return response.status(500).json('Internal Server error');
+    const fatal = 'Internal Server error';
+    return fatal;
   });
 };
 

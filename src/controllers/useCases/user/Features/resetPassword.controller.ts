@@ -2,12 +2,14 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { pool } from '../../../../config/configDataBase/database';
 import { logger } from '../../../../config/configLogger';
+import { sendResetPass } from '../../../../providers/SendEmail';
 
 const salt = bcrypt.genSaltSync(10);
 
 export const resetPassword = async (req: Request, res: Response) => {
   try {
     const { id_usuario } = req.params;
+    const { toEmail } = req.body;
 
     const { rowCount } = await pool.query('SELECT id_usuario FROM usuarios WHERE id_usuario = $1', [id_usuario]);
 
@@ -20,6 +22,8 @@ export const resetPassword = async (req: Request, res: Response) => {
     const hash = bcrypt.hashSync(newPassword, salt);
 
     await pool.query('UPDATE usuarios SET senha = $1', [hash]);
+
+    await sendResetPass(toEmail, newPassword);
 
     logger.info(`Usuario com id: ${id_usuario} foi resetado com sucesso`);
     return res.status(200).json({
