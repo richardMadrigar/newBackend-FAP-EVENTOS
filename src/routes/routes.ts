@@ -4,7 +4,7 @@ import multer from 'multer';
 
 import { verifyToken } from '../middlewares/verifyToken';
 import { createUser } from '../controllers/useCases/user/CreateUsers.controller';
-import { multerConfig } from '../config/configImg/multer';
+import { multerConfig } from '../config/uploadImg/multer';
 import { deleteImg, selectUserImg, updateImgUser } from '../controllers/useCases/UploadImage/UploadArquivos.controller';
 import { getUsersAll } from '../controllers/useCases/user/Features/getUsersAll.controller';
 import { deleteUser } from '../controllers/useCases/user/Features/deleteUser.controller';
@@ -19,7 +19,6 @@ import { getListEventAll } from '../controllers/useCases/events/ListEvent/getEve
 import { deleteEvent } from '../controllers/useCases/events/DeleteEvent';
 import { Login } from '../controllers/useCases/user/Login.controller';
 import { sessionUser } from '../controllers/useCases/user/Session.Controller';
-import { sendResetPass } from '../providers/SendEmail';
 
 const router = Router();
 
@@ -48,6 +47,4 @@ router.post('/getListEvent', getListEventSpecification);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);
 
-// SendEmail
-router.post('/sendResetPass', sendResetPass);
 export { router };

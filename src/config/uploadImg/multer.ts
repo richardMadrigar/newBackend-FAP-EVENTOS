@@ -6,7 +6,7 @@ import path from 'path';
 
 export const multerConfig = {
 
-  dest: path.resolve(__dirname, '..', '..', '..', 'tmp', 'uploads'), // destino para onde vai o upload
+  dest: path.resolve(__dirname, '..', '..', '..', 'tmp', 'uploads'), // destino do upload
 
   storage: multer.diskStorage({
 
