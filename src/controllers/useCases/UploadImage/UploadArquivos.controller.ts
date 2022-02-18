@@ -72,9 +72,10 @@ export const updateImgUser = async (req: Request, res: Response) => {
 
     try {
       const [{ file_path }] = rows;
-
-      if (await fs.promises.stat(`./tmp/uploads/${file_path}`)) {
-        await fs.promises.unlink(`./tmp/uploads/${file_path}`);
+      if (file_path) {
+        if (await fs.promises.stat(`./tmp/uploads/${file_path}`)) {
+          await fs.promises.unlink(`./tmp/uploads/${file_path}`);
+        }
       }
     } catch (error) {
       logger.fatal(`Erro ao substituir img do usuario ${error}`);
