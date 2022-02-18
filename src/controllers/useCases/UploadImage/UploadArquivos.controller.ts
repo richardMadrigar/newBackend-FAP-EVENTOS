@@ -56,6 +56,8 @@ export const updateImgUser = async (req: Request, res: Response) => {
   const { filename } = result;
 
   try {
+    const { rows, rowCount: CountUser } = await pool.query('SELECT file_path FROM  img_perfil_usuarios WHERE id_usuario = $1', [id]);
+
     const { rowCount } = await pool.query(
       ` UPDATE img_perfil_usuarios  SET 
       img_perfil = $1,
@@ -64,6 +66,14 @@ export const updateImgUser = async (req: Request, res: Response) => {
       [`http://localhost:3001/files/${filename}`, filename, id],
     );
 
+    if (CountUser) {
+      const [{ file_path }] = rows;
+      if (await fs.promises.stat(`./tmp/uploads/${file_path}`)) {
+        await fs.promises.unlink(`./tmp/uploads/${file_path}`);
+      }
+    }
+    logger.info({ rows });
+
     if (!rowCount) {
       return res.json(`Usuario com ${id} não existe `);
     }
@@ -71,7 +81,7 @@ export const updateImgUser = async (req: Request, res: Response) => {
     logger.info(`foto foi atualizada com sucesso id: ${id} `);
     return res.status(200).json(`Usuário com ${id} foi editado `);
   } catch (error) {
-    logger.falta(error);
+    logger.fatal(error);
     return res.status(500).json(`Internal Server error: ${error}`);
   }
 };
