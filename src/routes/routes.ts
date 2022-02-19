@@ -37,19 +37,20 @@ router.put('/users/:id_usuario', verifyToken, updateUser);
 router.get('/getUserAll', getUsersAll);
 
 // Home
+router.post('/sessions', verifyToken, sessionUser);
 router.post('/createUser', createUser);
 router.post('/login', Login);
-router.post('/sessions', verifyToken, sessionUser);
 
 // Events
-router.get('/getGerente/:responsavel_evento', getGerenteByName);
 router.post('/createEvent', CreateEvent);
 router.delete('/deleteEvent/:id_evento', deleteEvent);
+router.get('/getGerente/:responsavel_evento', getGerenteByName);
+
 router.post('/getListEvent', getListEventSpecification);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);
-
 router.get('/getEventById/:id_evento', getEventById);
+
 router.put('/updateEvent/:id_evento', UpdateEvent);
 
 export { router };
