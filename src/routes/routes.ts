@@ -19,6 +19,8 @@ import { getListEventAll } from '../controllers/useCases/events/ListEvent/getEve
 import { deleteEvent } from '../controllers/useCases/events/DeleteEvent';
 import { Login } from '../controllers/useCases/user/Login.controller';
 import { sessionUser } from '../controllers/useCases/user/Session.Controller';
+import { getEventById } from '../controllers/useCases/events/UpdateEvent/GetEventById';
+import { UpdateEvent } from '../controllers/useCases/events/UpdateEvent/UpdateEvent';
 
 const router = Router();
 
@@ -28,11 +30,11 @@ router.put('/deleteImg/:id', deleteImg);
 router.get('/getImgAll', selectUserImg);
 
 // FeaturesUsers
-router.put('/resetPassword/:id_usuario', verifyToken, resetPassword); // resetar senha
-router.get('/getUser/:id_usuario', verifyToken, getUserbyId); // pegar user especifico
-router.delete('/users/:id_usuario', verifyToken, deleteUser); // deletar users
-router.put('/users/:id_usuario', verifyToken, updateUser); // editar users
-router.get('/getUserAll', getUsersAll); // pegar usuarios
+router.put('/resetPassword/:id_usuario', verifyToken, resetPassword);
+router.get('/getUser/:id_usuario', verifyToken, getUserbyId);
+router.delete('/users/:id_usuario', verifyToken, deleteUser);
+router.put('/users/:id_usuario', verifyToken, updateUser);
+router.get('/getUserAll', getUsersAll);
 
 // Home
 router.post('/createUser', createUser);
@@ -46,5 +48,8 @@ router.delete('/deleteEvent/:id_evento', deleteEvent);
 router.post('/getListEvent', getListEventSpecification);
 router.post('/getListEventDay', getListEventDay);
 router.get('/getListEventAll', getListEventAll);
+
+router.get('/getEventById/:id_evento', getEventById);
+router.put('/updateEvent/:id_evento', UpdateEvent);
 
 export { router };

@@ -6,6 +6,9 @@ import { logger } from '../../../../config/configLogger';
 export const getListEventSpecification = async (request: Request, response: Response) => {
   const { inicial_date, final_date, nome_evento } = request.body;
 
+  if (!inicial_date && !final_date && !nome_evento) {
+    return response.status(200).json([]);
+  }
   const SQL = inicial_date && final_date
     ? `SELECT * FROM eventos 
         WHERE data_evento BETWEEN '${inicial_date}' and '${final_date}'
