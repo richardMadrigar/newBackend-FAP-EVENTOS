@@ -7,7 +7,11 @@ export const getGerenteByName = async (req: Request, res: Response) => {
   const { responsavel_evento } = req.params;
 
   try {
-    const SQL = `SELECT nome_completo, id_usuario, cpf_usuario FROM permissao_usuarios WHERE nome_completo ILIKE '%${responsavel_evento}%'`;
+    const SQL = `SELECT nome_completo, id_usuario, cpf_usuario FROM permissao_usuarios 
+                  WHERE
+                  nome_completo ILIKE '%${responsavel_evento}%' 
+                    AND 
+                  permissao = 'gestor'`;
 
     const { rows, rowCount } = await pool.query(SQL);
 
