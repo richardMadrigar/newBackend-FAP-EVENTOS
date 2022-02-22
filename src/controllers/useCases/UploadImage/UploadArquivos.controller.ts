@@ -48,6 +48,7 @@ export const deleteImg = async (req: Request, res: Response) => {
 export const updateImgUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = req.file;
+  logger.warn(result);
 
   if (!result) {
     return res.status(400).json({ success: 'nao tem conteudo', result });
