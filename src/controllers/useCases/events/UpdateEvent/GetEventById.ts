@@ -19,6 +19,19 @@ export const getEventById = async (req: Request, res: Response) => {
       responsavel_evento, ativo_evento, descricao_evento,
     }] = rows;
 
+    const { rows: ns } = await pool.query('SELECT nome_completo, cpf_usuario FROM permissao_usuarios WHERE id_usuario =  $1', [responsavel_evento]);
+    const result = ns.map((value) => ({
+      responsavel_evento: `${value.nome_completo}  +  ${value.cpf_usuario}`,
+    }));
+    const resultt = result.map((user) => user.responsavel_evento);
+
+    const date = new Date(data_evento);
+    const restulDateFormat = new Intl.DateTimeFormat('fr-ca', { dateStyle: 'short' }).format(date);
+
+    // const myArray = [{ id: 1, name: 'John' }, { id: 2, name: 'Rick' }, { id: 3, name: 'Anna' }];
+    // myArray.splice(0, 1);
+    // console.log(myArray);
+
     return res.json({
       nome_evento,
       endereco_evento,
@@ -26,10 +39,10 @@ export const getEventById = async (req: Request, res: Response) => {
       bairro_evento,
       cidade_evento,
       estado_evento,
-      data_evento,
+      data_evento: restulDateFormat,
       inicio_evento,
       termino_evento,
-      responsavel_evento,
+      responsavel_evento: resultt[0],
       ativo_evento,
       descricao_evento,
       id_evento,

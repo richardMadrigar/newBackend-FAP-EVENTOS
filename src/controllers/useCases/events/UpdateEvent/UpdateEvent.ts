@@ -15,12 +15,32 @@ export const UpdateEvent = async (req: Request, res: Response): Promise<Response
     data_evento,
     inicio_evento,
     termino_evento,
-    responsavel_evento,
+    responsavel_evento_nome,
     ativo_evento,
     descricao_evento,
   } = req.body;
 
-  const SQL = `
+  if (nome_evento === ''
+  || endereco_evento === ''
+  || numero_evento === ''
+  || bairro_evento === ''
+  || cidade_evento === ''
+  || estado_evento === ''
+  || data_evento === ''
+  || inicio_evento === ''
+  || termino_evento === ''
+  || responsavel_evento_nome === ''
+  || ativo_evento === ''
+  || descricao_evento === '') {
+    return res.status(200).json('Falta de dados para criar evento');
+  }
+  try {
+    const [, responsavel_eventoSplit] = responsavel_evento_nome.split(' + ');
+
+    const { rows } = await pool.query('SELECT id_usuario FROM permissao_usuarios WHERE cpf_usuario =  $1', [responsavel_eventoSplit]);
+    const [{ id_usuario }] = rows;
+
+    const SQL = `
       UPDATE eventos SET
       nome_evento = $1, endereco_evento = $2,  numero_evento = $3, 
       bairro_evento = $4, cidade_evento = $5, estado_evento = $6,
@@ -29,15 +49,14 @@ export const UpdateEvent = async (req: Request, res: Response): Promise<Response
       WHERE id_evento = $13
     `;
 
-  const values = [
-    nome_evento, endereco_evento, numero_evento,
-    bairro_evento, cidade_evento, estado_evento,
-    data_evento, inicio_evento, termino_evento,
-    responsavel_evento, ativo_evento, descricao_evento,
-    id_evento,
-  ];
+    const values = [
+      nome_evento, endereco_evento, numero_evento,
+      bairro_evento, cidade_evento, estado_evento,
+      data_evento, inicio_evento, termino_evento,
+      id_usuario, ativo_evento, descricao_evento,
+      id_evento,
+    ];
 
-  try {
     const { rowCount } = await pool.query('SELECT * FROM eventos WHERE id_evento = $1', [id_evento]);
 
     if (!rowCount) {

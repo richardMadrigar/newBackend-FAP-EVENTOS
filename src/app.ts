@@ -4,8 +4,11 @@ import cors from 'cors';
 import path from 'path';
 
 import { router } from './routes/routes';
+// import { transporter } from './config/configNodeMailer';
 
 const app = express();
+
+// transporter.verify();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
